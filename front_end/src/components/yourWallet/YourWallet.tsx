@@ -5,6 +5,7 @@ import { TabContext, TabList, TabPanel } from "@material-ui/lab"
 import { Tab } from "@material-ui/core"
 import { WalletBalance } from "./WalletBalance"
 import { StakeForm } from "./StakeForm"
+import { UnStakeForm } from "./UnStakeForm"
 
 interface YourWalletProps {
     supportedTokens: Array<Token>
@@ -53,6 +54,7 @@ export const YourWallet = ({ supportedTokens }: YourWalletProps) => {
                                 <div className={classes.tabContent}>
                                     <WalletBalance token={supportedTokens[selectedTokenIndex]} />
                                     <StakeForm token={supportedTokens[selectedTokenIndex]} />
+                                    <UnStakeForm token={supportedTokens[selectedTokenIndex]} />
                                 </div>
                             </TabPanel>
                         )
