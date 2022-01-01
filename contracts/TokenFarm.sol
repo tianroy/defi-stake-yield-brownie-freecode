@@ -118,6 +118,7 @@ contract TokenFarm is Ownable {
     }
 
     function viewStakedToken(address _token) public returns (uint256) {
+        // this is useless btw...
         uint256 balance = stakingBalance[_token][msg.sender];
         return stakingBalance[_token][msg.sender];
     }
