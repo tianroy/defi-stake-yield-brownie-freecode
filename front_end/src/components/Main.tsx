@@ -59,7 +59,7 @@ export const Main = () => {
     ]
 
     return (<>
-        <h2 className={classes.title}>Dapp Token App</h2>
+        <h1 className={classes.title}>SNOWMAN</h1>
         <YourWallet supportedTokens={supportedTokens} />
     </>)
 }
