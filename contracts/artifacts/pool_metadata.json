@@ -294,10 +294,10 @@
 	},
 	"sources": {
 		"contracts/pool.sol": {
-			"keccak256": "0x936a18efbba9182ff6a6f0aea67ad7f6bc5e0e3ad3db2749783fac2e9c271d43",
+			"keccak256": "0xbdc5290e1ab5fdaa267c4ec7676e721d0fbb57189a864aec22f1ef4f7dba1af0",
 			"urls": [
-				"bzz-raw://f187ebe3852c1a755b41473741f8449e1f5cf6d06f69e781fbc25aa12163f832",
-				"dweb:/ipfs/QmYF5U65JPueaqJP1HX1vPm9sHUW2kTVgL8GmvpWr966QQ"
+				"bzz-raw://5505b47c5b5d01d418b6f2f605c3993d99fdf51f2a035d82b75cf902a3164a67",
+				"dweb:/ipfs/Qma6yEUbZdNgpcD5akmCM2ZdSU4McGDSKgUreXAkfBHUw8"
 			]
 		}
 	},
