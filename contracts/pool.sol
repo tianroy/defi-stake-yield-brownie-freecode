@@ -8,13 +8,14 @@ contract pool {
     uint256 private constant NO_TRADE_CLOSE_TO_EXPIRE = 10; //seconds
     uint256 private constant MIN_BUYER_SIZE = 1e3;
     uint256 private constant MIN_SELLER_SIZE = 1e3;
+    uint256 private constant TRANSACTION_COST = 1; // so 1% for each trade or we use a formula
 
     // prevent two people draw liquidity at same time
     enum contract_status {
         open,
         locked
     }
-    contract_status public STATUS = contract_status.open;
+    contract_status private STATUS = contract_status.open;
 
     //Pricefeed interfaces from chainlink
     // uncomment this below if need real ETH price !!!!!!!!
@@ -56,21 +57,21 @@ contract pool {
         uint256 supply; //buyer place bid and seller can sell the bid; supply = number of option x strike
         uint256[] order; //order book sequence pointer, low bid to high bid, bids[id][order[0]] is the lowest bid
     }
-    uint256 public id = 0; // for testing we only have one option
+    uint256 private id = 0; // for testing we only have one option
     // op[id] is one option detail
     option_struct[] public op;
 
     // ********************
     // for testing purpose
-    uint256[] public order_for_test = [2, 3, 0, 1];
-    bid_struct[] public order_book_for_one_option;
+    uint256[] private order_for_test = [2, 3, 0, 1];
+    bid_struct[] private order_book_for_one_option;
     // settlement_amount is only for testing purples, need to delete in production
     uint256 public settlement_amount;
 
     // ********************
 
     //Kovan feeds: https://docs.chain.link/docs/reference-contracts
-    constructor() {
+    constructor() public {
         //ETH/USD Kovan feed
         // uncomment this below if need real ETH price !!!!!!!!
         // ethFeed = AggregatorV3Interface(0x9326BFA02ADD2366b30bacB125260Af641031331);
@@ -78,17 +79,17 @@ contract pool {
 
         option_struct memory option = option_struct({
             strike: 3300, // in USDC
-            expiry: block.timestamp + 30, // 30seconds option, for testing purpose
-            supply: 10000, // after buyer place bid, supply will increase, in producation initial value =0
+            expiry: block.timestamp + 60, // 30seconds option, for testing purpose
+            supply: 8000, // after buyer place bid, supply will increase, in producation initial value =0
             order: order_for_test
         });
         op.push(option);
         // for testing only, we create an option with some supply
-        address fake_bid_address = 0x5B38Da6a701c568545dCfcB03FcB875f56beddC4;
-        order_book_for_one_option.push(bid_struct(10, 2000, fake_bid_address));
-        order_book_for_one_option.push(bid_struct(12, 1000, fake_bid_address));
-        order_book_for_one_option.push(bid_struct(6, 3000, fake_bid_address));
-        order_book_for_one_option.push(bid_struct(4, 2000, fake_bid_address));
+        address fake_bid_address = 0xCA35b7d915458EF540aDe6068dFe2F44E8fa733c;
+        order_book_for_one_option.push(bid_struct(330, 2000, fake_bid_address));
+        order_book_for_one_option.push(bid_struct(396, 1000, fake_bid_address));
+        order_book_for_one_option.push(bid_struct(198, 3000, fake_bid_address));
+        order_book_for_one_option.push(bid_struct(132, 2000, fake_bid_address));
         bids[id] = order_book_for_one_option;
     }
 
@@ -197,7 +198,11 @@ contract pool {
         return average_bid;
     }
 
-    function placeBid(uint256 newbid) public payable {
+    function placeBid(uint256 newbid)
+        public
+        payable
+        returns (uint256[] memory)
+    {
         // buyer place bid order but nothing traded yet
         // newbid in usd, eth option price
         address _user = msg.sender;
@@ -225,8 +230,8 @@ contract pool {
         op[id].supply += _size;
 
         // update order book
-        insertBid(newbid);
         bids[id].push(bid_struct(newbid, _size, _user));
+        insertBid(newbid);
     }
 
     function cancelBid() public {
@@ -251,22 +256,19 @@ contract pool {
         user[_user][id].unusedpremium = 0;
 
         // update order book and option supply
+        uint256[] memory old_order = op[id].order;
         uint256 k = 0;
-        for (uint256 i = 0; i < op[id].order.length; i++) {
-            if (bids[id][op[id].order[i]].user_id == _user) {
-                // if this bid is from this user
-                for (uint256 j = i + 1; j < op[id].order.length; j++) {
-                    // move order book pointer left by 1
-                    op[id].order[j - 1] = op[id].order[j];
-                }
-                op[id].supply -=
-                    (bids[id][op[id].order[i]].size * op[id].strike) /
-                    bids[id][op[id].order[i]].price;
-                // k = how many bids from this user we need pop later
+        for (uint256 i = 0; i < old_order.length; i++) {
+            if (bids[id][old_order[i]].user_id != _user) {
+                // if this bid is not from this user
+                op[id].order[k] = old_order[i];
+                // k = how many bids we need to keep
                 k++;
+            } else {
+                op[id].supply -= bids[id][old_order[i]].size;
             }
         }
-        for (uint256 i = 0; i < k; k++) {
+        for (uint256 i = 0; i < old_order.length - k; i++) {
             op[id].order.pop();
         }
         STATUS = contract_status.open;
@@ -321,7 +323,7 @@ contract pool {
         user[_user][id].side = option_side.exercised;
     }
 
-    function insertBid(uint256 newbid) public {
+    function insertBid(uint256 newbid) internal {
         // insert the newbid in to bids according to the newbid level, lowest bid at 0 position
         uint256 left = 0;
         uint256 right = op[id].order.length - 1;
@@ -347,14 +349,14 @@ contract pool {
             }
         }
         // first push the pointer of newbid /last one of bids into the order array
-        op[id].order.push(op[id].order.length); //bid length is increasing 1 here
+        op[id].order.push(bids[id].length - 1);
         if (mid < op[id].order.length - 1) {
             for (uint256 i = op[id].order.length - 1; i > mid; i--) {
                 // copy the old value to the right next one
                 op[id].order[i] = op[id].order[i - 1];
             }
             // insert the pointer(aka order) of newbid
-            op[id].order[mid] = op[id].order.length - 1; // bid length has increased 1 earlier
+            op[id].order[mid] = bids[id].length - 1;
         } // else if mid == order.lenghth, newbid is highest and already been pushed to the last one of order
     }
 
@@ -366,8 +368,8 @@ contract pool {
         return (user[msg.sender][id].size);
     }
 
-    function PlayerSide() public view returns (option_side) {
-        return (user[msg.sender][id].side);
+    function getOrder() public view returns (uint256[] memory) {
+        return op[id].order;
     }
 
     function SecondToExpiry() public view returns (uint256) {
