@@ -12,45 +12,6 @@
 			},
 			{
 				"inputs": [],
-				"name": "MIN_BUYER_SIZE",
-				"outputs": [
-					{
-						"internalType": "uint256",
-						"name": "",
-						"type": "uint256"
-					}
-				],
-				"stateMutability": "view",
-				"type": "function"
-			},
-			{
-				"inputs": [],
-				"name": "MIN_SELLER_SIZE",
-				"outputs": [
-					{
-						"internalType": "uint256",
-						"name": "",
-						"type": "uint256"
-					}
-				],
-				"stateMutability": "view",
-				"type": "function"
-			},
-			{
-				"inputs": [],
-				"name": "NO_TRADE_CLOSE_TO_EXPIRE",
-				"outputs": [
-					{
-						"internalType": "uint256",
-						"name": "",
-						"type": "uint256"
-					}
-				],
-				"stateMutability": "view",
-				"type": "function"
-			},
-			{
-				"inputs": [],
 				"name": "PlayerAmount",
 				"outputs": [
 					{
@@ -115,14 +76,95 @@
 				"type": "function"
 			},
 			{
-				"inputs": [],
-				"name": "SellOption",
-				"outputs": [],
-				"stateMutability": "payable",
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "_size",
+						"type": "uint256"
+					}
+				],
+				"name": "bestBid",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "average_bid",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
 				"type": "function"
 			},
 			{
-				"inputs": [],
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"name": "bid",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "price",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "amount",
+						"type": "uint256"
+					},
+					{
+						"internalType": "address",
+						"name": "player_address",
+						"type": "address"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"name": "bids",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "price",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "amount",
+						"type": "uint256"
+					},
+					{
+						"internalType": "address",
+						"name": "player_address",
+						"type": "address"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "_newbid",
+						"type": "uint256"
+					}
+				],
 				"name": "buyOption",
 				"outputs": [],
 				"stateMutability": "payable",
@@ -164,7 +206,7 @@
 			},
 			{
 				"inputs": [],
-				"name": "option_id",
+				"name": "id",
 				"outputs": [
 					{
 						"internalType": "uint256",
@@ -183,7 +225,7 @@
 						"type": "uint256"
 					}
 				],
-				"name": "options",
+				"name": "op",
 				"outputs": [
 					{
 						"internalType": "uint256",
@@ -192,7 +234,7 @@
 					},
 					{
 						"internalType": "uint256",
-						"name": "price_percent",
+						"name": "wrong_price",
 						"type": "uint256"
 					},
 					{
@@ -207,6 +249,38 @@
 					}
 				],
 				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"name": "order",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "newbid",
+						"type": "uint256"
+					}
+				],
+				"name": "placeBid",
+				"outputs": [],
+				"stateMutability": "nonpayable",
 				"type": "function"
 			},
 			{
@@ -236,11 +310,23 @@
 					},
 					{
 						"internalType": "uint256",
-						"name": "premium",
+						"name": "unused_premium",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "sizexprice",
 						"type": "uint256"
 					}
 				],
 				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "sellOption",
+				"outputs": [],
+				"stateMutability": "payable",
 				"type": "function"
 			},
 			{
@@ -294,10 +380,10 @@
 	},
 	"sources": {
 		"contracts/pool.sol": {
-			"keccak256": "0xbdc5290e1ab5fdaa267c4ec7676e721d0fbb57189a864aec22f1ef4f7dba1af0",
+			"keccak256": "0xaa1d631b9ecf4c2f1df8fc54055689344e175d314386476e4d779ca5d69fc78f",
 			"urls": [
-				"bzz-raw://5505b47c5b5d01d418b6f2f605c3993d99fdf51f2a035d82b75cf902a3164a67",
-				"dweb:/ipfs/Qma6yEUbZdNgpcD5akmCM2ZdSU4McGDSKgUreXAkfBHUw8"
+				"bzz-raw://ca2465ef61136bdc94278aeba18b2b93709e5dcca0cabea85cadad8a3210b010",
+				"dweb:/ipfs/QmVs7wcATBU7ULWV5GCCdCkqaS1i3ZmS8CQhUfZyzNDUKd"
 			]
 		}
 	},

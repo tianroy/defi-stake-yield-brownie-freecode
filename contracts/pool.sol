@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity >0.6.7;
+pragma solidity >=0.6.7;
 
 // uncomment this below if need real ETH price !!!!!!!!
 //import "@chainlink/contracts/src/v0.6/interfaces/AggregatorV3Interface.sol";
@@ -65,7 +65,7 @@ contract pool {
     option_struct[] public op;
 
     //Kovan feeds: https://docs.chain.link/docs/reference-contracts
-    constructor() public {
+    constructor() {
         //ETH/USD Kovan feed
         // uncomment this below if need real ETH price !!!!!!!!
         // ethFeed = AggregatorV3Interface(0x9326BFA02ADD2366b30bacB125260Af641031331);
@@ -153,10 +153,11 @@ contract pool {
         // known issue here
     }
 
-    function bestBid(uint256 _size) public view returns (uint256 average_bid) {
+    function bestBid(uint256 amount) public view returns (uint256 average_bid) {
         // same logic as sellOption Function but not updating options and players
-        require(_size >= MIN_SELLER_SIZE, "Min size = 1000");
-        require(_size <= op[id].supply, "low supply");
+        require(amount >= MIN_SELLER_SIZE, "Min size = 1000");
+        require(amount <= op[id].supply, "low supply");
+        uint256 _size = amount;
         uint256 _sizexprice = 0;
         uint256 each_bid_amount;
         uint256 i = op[id].order.length - 1;
@@ -172,7 +173,7 @@ contract pool {
             }
             i--;
         }
-        average_bid = _sizexprice / _size;
+        average_bid = _sizexprice / amount;
         return average_bid;
     }
 
