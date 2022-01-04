@@ -72,10 +72,10 @@ contract pool {
         contract_address = payable(address(this));
 
         option_struct memory option = option_struct({
-            strike: 3300,
+            strike: 3300, // in USDT
             wrong_price: 10, // for testing purpose we buy and sell at same price = 10%
             expiry: block.timestamp + 30, // 30seconds option, for testing purpose
-            supply: 10000, //after buyer place bid, supply will increase
+            supply: 10000, // after buyer place bid, supply will increase
             order: order
         });
         op.push(option);
@@ -153,11 +153,15 @@ contract pool {
         // known issue here
     }
 
-    function bestBid(uint256 amount) public view returns (uint256 average_bid) {
+    function bestBid(uint256 ask_size)
+        public
+        view
+        returns (uint256 average_bid)
+    {
         // same logic as sellOption Function but not updating options and players
-        require(amount >= MIN_SELLER_SIZE, "Min size = 1000");
-        require(amount <= op[id].supply, "low supply");
-        uint256 _size = amount;
+        require(ask_size >= MIN_SELLER_SIZE, "Min size = 1000");
+        require(ask_size <= op[id].supply, "low supply");
+        uint256 _size = ask_size;
         uint256 _sizexprice = 0;
         uint256 each_bid_amount;
         uint256 i = op[id].order.length - 1;
@@ -173,7 +177,7 @@ contract pool {
             }
             i--;
         }
-        average_bid = _sizexprice / amount;
+        average_bid = _sizexprice / ask_size;
         return average_bid;
     }
 
