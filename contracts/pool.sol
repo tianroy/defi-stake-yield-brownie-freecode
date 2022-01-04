@@ -1,12 +1,17 @@
 // SPDX-License-Identifier: MIT
 pragma solidity >=0.6.7;
 
+// to do
+// 1. deposit and withdraw
+// 2. sushi
+// 3. transcation cost
+
 // uncomment this below if need real ETH price !!!!!!!!
 //import "@chainlink/contracts/src/v0.6/interfaces/AggregatorV3Interface.sol";
 
 contract pool {
     uint256 private constant NO_TRADE_CLOSE_TO_EXPIRE = 10; //seconds
-    uint256 private constant MIN_BUYER_SIZE = 1e3;
+    uint256 private constant MIN_BUYER_SIZE = 1e2;
     uint256 private constant MIN_SELLER_SIZE = 1e3;
     uint256 private constant TRANSACTION_COST = 1; // so 1% for each trade or we use a formula
 
@@ -24,13 +29,13 @@ contract pool {
 
     address payable contract_address;
 
-    // bid_struct: each bid in bids (bids the order book for each option)
+    // bid_struct: each bid in bids (bids is the order book for each option)
     struct bid_struct {
         uint256 price; // usd per option
         uint256 size; // number of option x strike
         address user_id; //user address
     }
-    // bids[id] is the order book for each option
+    // bids[id] is the order book for each option[id]
     mapping(uint256 => bid_struct[]) public bids;
 
     // user_struct saves all info for each user
@@ -47,7 +52,7 @@ contract pool {
         option_side side; //after expiry, re-allocate payoff depends on buyer or seller of option
         uint256 unusedpremium; //in USD, premium in the pool but not traded, for buyer only
     }
-    // user[user_address][option-id] is a user_struct
+    // user[user_address][option-id] is each user
     mapping(address => mapping(uint256 => user_struct)) public user;
 
     // option_struct saves info for each option
@@ -57,12 +62,12 @@ contract pool {
         uint256 supply; //buyer place bid and seller can sell the bid; supply = number of option x strike
         uint256[] order; //order book sequence pointer, low bid to high bid, bids[id][order[0]] is the lowest bid
     }
-    uint256 private id = 0; // for testing we only have one option
-    // op[id] is one option detail
+    // op[id] is each option
     option_struct[] public op;
 
     // ********************
     // for testing purpose
+    uint256 private id = 0; // for testing we only have one option
     uint256[] private order_for_test = [2, 3, 0, 1];
     bid_struct[] private order_book_for_one_option;
     // settlement_amount is only for testing purples, need to delete in production
@@ -71,7 +76,7 @@ contract pool {
     // ********************
 
     //Kovan feeds: https://docs.chain.link/docs/reference-contracts
-    constructor() public {
+    constructor() {
         //ETH/USD Kovan feed
         // uncomment this below if need real ETH price !!!!!!!!
         // ethFeed = AggregatorV3Interface(0x9326BFA02ADD2366b30bacB125260Af641031331);
@@ -128,7 +133,6 @@ contract pool {
         require(seller_size <= op[id].supply, "low supply");
 
         // update order book
-        op[id].supply -= seller_size;
         uint256 remain = seller_size;
         uint256 sizexprice = 0;
         uint256 each_size;
@@ -137,27 +141,33 @@ contract pool {
         while (remain > 0) {
             each_size = bids[id][op[id].order[i]].size;
             if (remain >= each_size) {
-                sizexprice += (each_size * bids[id][op[id].order[i]].price);
-                remain -= each_size;
-                op[id].supply -= each_size;
-                bids[id][op[id].order[i]].size = 0;
-                // last one is the highest one, pop the highest bid
-                op[id].order.pop();
                 // update buyer
                 user[bids[id][op[id].order[i]].user_id][id].size += each_size;
                 user[bids[id][op[id].order[i]].user_id][id]
                     .unusedpremium -= ((each_size *
                     bids[id][op[id].order[i]].price) / op[id].strike);
+                // update seller
+                sizexprice += (each_size * bids[id][op[id].order[i]].price);
+                // update option
+                op[id].supply -= each_size;
+                // update order book
+                bids[id][op[id].order[i]].size = 0;
+                // last one is the highest one, pop the highest bid
+                op[id].order.pop();
+                remain -= each_size;
             } else {
-                sizexprice += (remain * bids[id][op[id].order[i]].price);
-                bids[id][op[id].order[i]].size -= remain;
-                op[id].supply -= remain;
-                remain = 0;
                 // update buyer
                 user[bids[id][op[id].order[i]].user_id][id].size += remain;
                 user[bids[id][op[id].order[i]].user_id][id]
                     .unusedpremium -= ((remain *
                     bids[id][op[id].order[i]].price) / op[id].strike);
+                // update seller
+                sizexprice += (remain * bids[id][op[id].order[i]].price);
+                // update option
+                op[id].supply -= remain;
+                // update order book
+                bids[id][op[id].order[i]].size -= remain;
+                remain = 0;
             }
             i--;
         }
@@ -198,11 +208,7 @@ contract pool {
         return average_bid;
     }
 
-    function placeBid(uint256 newbid)
-        public
-        payable
-        returns (uint256[] memory)
-    {
+    function placeBid(uint256 newbid) public payable {
         // buyer place bid order but nothing traded yet
         // newbid in usd, eth option price
         address _user = msg.sender;
@@ -218,7 +224,7 @@ contract pool {
         require(premium >= MIN_BUYER_SIZE, "Min size = 1000");
 
         // update buyer
-        // btw user.size only updated when seller sell the bid
+        // btw user.size only updated when seller sell the bid / only when trade
         user[_user][id].side = option_side.buyer;
         user[_user][id].unusedpremium += premium; //premium not used if seller not selling it
 
@@ -235,7 +241,7 @@ contract pool {
     }
 
     function cancelBid() public {
-        // to make it easy, cancel all bid for testing stage
+        // to make it easy, cancel all bids for testing stage
         // can make it cancel specific bid, but need more coding
         address payable _user = payable(msg.sender);
         require(
@@ -290,14 +296,13 @@ contract pool {
             _side == option_side.seller || _side == option_side.buyer,
             "You have no position"
         );
-        require(
-            !(_side == option_side.buyer && _size == 0),
-            "No one sell your bid / nothing to expire"
-        );
-        require(
-            !(_side == option_side.buyer && ethPrice >= _strike),
-            "Expire worth zero"
-        );
+        if (_side == option_side.buyer) {
+            require(_size > 0, "No one sell your bid and nothing to expire");
+            require(ethPrice < _strike, "Expire worth zero");
+            if (user[_user][id].unusedpremium > 0) {
+                cancelBid();
+            }
+        }
         if (_side == option_side.seller) {
             if (ethPrice < _strike) {
                 // Be very careful!!!!!!!!!!!!
@@ -311,7 +316,6 @@ contract pool {
                 settlement_amount = _size;
             }
         } else {
-            cancelBid();
             if (ethPrice < _strike) {
                 // below is for cash settlement in usd
                 // noted: when we record buyer size = usd_collected / %price * strike / ethPrice
