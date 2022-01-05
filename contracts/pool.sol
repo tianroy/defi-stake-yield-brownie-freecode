@@ -99,10 +99,7 @@ contract pool {
         // ********************
     }
 
-    function placeBid(uint256 newbid, uint256 premium)
-        public
-        returns (uint256[] memory)
-    {
+    function placeBid(uint256 newbid, uint256 premium) public {
         // buyer place bid order but nothing traded yet
         // newbid in usd, eth option price
         address _user = msg.sender;
