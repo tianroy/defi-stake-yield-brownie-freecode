@@ -92,7 +92,7 @@ function sellBid(uint256 seller_size) public {
             remain -= each_size;
         } else {
             // update buyer
-            // 逻辑类似 但是这个bid完全被拿走，指针还存在，只是size变少
+            // 逻辑类似 但是这个bidm没有完全被拿走，指针还存在，只是size变少
             user[bids[id][op[id].order[i]].user_id][id].size += remain;
             user[bids[id][op[id].order[i]].user_id][id]
                 .unusedpremium -= ((remain * bids[id][op[id].order[i]].price) /
@@ -133,7 +133,7 @@ function exercise() public {
             // 卖家要拿到eth， 需要在这里转换eth，以下是eth size
             cash_balance[_user] += _size / _strike;
         } else {
-            // eth大与strike 要把cash和yield都还给卖家
+            // 卖家，eth大于strike 要把cash和yield都还给卖家
             cash_balance[_user] += _size;
         }
     } else {
@@ -141,7 +141,7 @@ function exercise() public {
             // 买家，现金settle，eth跌低于strike，买家赚钱
             cash_balance[_user] += ((_size * (_strike - ethPrice)) / _strike);
         } // else do nothing: expire worth zero
-        // 买家 如果eth大于strike premium就没了 不退钱
+        // 买家 eth大于strike premium就没了 不退钱
     }
     user[_user][id].side = option_side.exercised;
 }
