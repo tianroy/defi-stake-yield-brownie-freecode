@@ -8,7 +8,7 @@ pragma solidity >=0.6.7;
 // uncomment this below if need real ETH price !!!!!!!!
 //import "@chainlink/contracts/src/v0.6/interfaces/AggregatorV3Interface.sol";
 
-contract pool {
+contract pool_plus {
     uint256 private constant NO_TRADE_CLOSE_TO_EXPIRE = 10; //seconds
     uint256 private constant MIN_BUYER_SIZE = 1e2;
     uint256 private constant MIN_SELLER_SIZE = 1e3;
