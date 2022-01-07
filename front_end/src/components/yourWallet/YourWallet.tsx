@@ -64,6 +64,32 @@ export const YourWallet = ({ supportedTokens }: YourWalletProps) => {
                     })}
                 </TabContext>
             </Box>
+            <h2 className={classes.header}> Dual ETH Strike=4000 Maturity=2022-3-25 </h2>
+            <Box className={classes.box}>
+                <TabContext value={selectedTokenIndex.toString()}>
+                    <TabList onChange={handleChange} aria-label="stake form tabs">
+                        {supportedTokens.map((token, index) => {
+                            return (
+                                <Tab label={token.name}
+                                    value={index.toString()}
+                                    key={index} />
+                            )
+                        })}
+                    </TabList>
+                    {supportedTokens.map((token, index) => {
+                        return (
+                            <TabPanel value={index.toString()} key={index}>
+                                <div className={classes.tabContent}>
+                                    <WalletBalance token={supportedTokens[selectedTokenIndex]} />
+                                    <StakeForm token={supportedTokens[selectedTokenIndex]} />
+                                    <ContractBalance token={supportedTokens[selectedTokenIndex]} />
+                                    <UnStakeForm token={supportedTokens[selectedTokenIndex]} />
+                                </div>
+                            </TabPanel>
+                        )
+                    })}
+                </TabContext>
+            </Box>
         </Box >
     )
 
