@@ -240,12 +240,12 @@
     }
   ],
   "allSourcePaths": {
-    "1": "/Users/patrick/.brownie/packages/smartcontractkit/chainlink-brownie-contracts@0.2.1/contracts/src/v0.6/interfaces/AggregatorInterface.sol",
-    "2": "/Users/patrick/.brownie/packages/smartcontractkit/chainlink-brownie-contracts@0.2.1/contracts/src/v0.6/interfaces/AggregatorV2V3Interface.sol",
-    "3": "/Users/patrick/.brownie/packages/smartcontractkit/chainlink-brownie-contracts@0.2.1/contracts/src/v0.6/interfaces/AggregatorV3Interface.sol"
+    "1": "/Users/roy/.brownie/packages/smartcontractkit/chainlink-brownie-contracts@0.2.1/contracts/src/v0.6/interfaces/AggregatorInterface.sol",
+    "2": "/Users/roy/.brownie/packages/smartcontractkit/chainlink-brownie-contracts@0.2.1/contracts/src/v0.6/interfaces/AggregatorV2V3Interface.sol",
+    "3": "/Users/roy/.brownie/packages/smartcontractkit/chainlink-brownie-contracts@0.2.1/contracts/src/v0.6/interfaces/AggregatorV3Interface.sol"
   },
   "ast": {
-    "absolutePath": "/Users/patrick/.brownie/packages/smartcontractkit/chainlink-brownie-contracts@0.2.1/contracts/src/v0.6/interfaces/AggregatorV2V3Interface.sol",
+    "absolutePath": "/Users/roy/.brownie/packages/smartcontractkit/chainlink-brownie-contracts@0.2.1/contracts/src/v0.6/interfaces/AggregatorV2V3Interface.sol",
     "exportedSymbols": {
       "AggregatorV2V3Interface": [
         886
@@ -267,7 +267,7 @@
         "src": "32:23:2"
       },
       {
-        "absolutePath": "/Users/patrick/.brownie/packages/smartcontractkit/chainlink-brownie-contracts@0.2.1/contracts/src/v0.6/interfaces/AggregatorInterface.sol",
+        "absolutePath": "/Users/roy/.brownie/packages/smartcontractkit/chainlink-brownie-contracts@0.2.1/contracts/src/v0.6/interfaces/AggregatorInterface.sol",
         "file": "./AggregatorInterface.sol",
         "id": 880,
         "nodeType": "ImportDirective",
@@ -278,7 +278,7 @@
         "unitAlias": ""
       },
       {
-        "absolutePath": "/Users/patrick/.brownie/packages/smartcontractkit/chainlink-brownie-contracts@0.2.1/contracts/src/v0.6/interfaces/AggregatorV3Interface.sol",
+        "absolutePath": "/Users/roy/.brownie/packages/smartcontractkit/chainlink-brownie-contracts@0.2.1/contracts/src/v0.6/interfaces/AggregatorV3Interface.sol",
         "file": "./AggregatorV3Interface.sol",
         "id": 881,
         "nodeType": "ImportDirective",
@@ -386,6 +386,6 @@
   "sha1": "28145bea34cc6cdbfcebe091314fb602700f19e6",
   "source": "// SPDX-License-Identifier: MIT\npragma solidity ^0.6.0;\n\nimport \"./AggregatorInterface.sol\";\nimport \"./AggregatorV3Interface.sol\";\n\ninterface AggregatorV2V3Interface is AggregatorInterface, AggregatorV3Interface\n{\n}\n",
   "sourceMap": "",
-  "sourcePath": "/Users/patrick/.brownie/packages/smartcontractkit/chainlink-brownie-contracts@0.2.1/contracts/src/v0.6/interfaces/AggregatorV2V3Interface.sol",
+  "sourcePath": "/Users/roy/.brownie/packages/smartcontractkit/chainlink-brownie-contracts@0.2.1/contracts/src/v0.6/interfaces/AggregatorV2V3Interface.sol",
   "type": "interface"
 }

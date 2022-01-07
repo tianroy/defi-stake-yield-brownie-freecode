@@ -5,6 +5,9 @@ import { TabContext, TabList, TabPanel } from "@material-ui/lab"
 import { Tab } from "@material-ui/core"
 import { WalletBalance } from "./WalletBalance"
 import { StakeForm } from "./StakeForm"
+import { UnStakeForm } from "./UnStakeForm"
+import { ContractBalance } from "./ContractBalance"
+
 
 interface YourWalletProps {
     supportedTokens: Array<Token>
@@ -35,7 +38,7 @@ export const YourWallet = ({ supportedTokens }: YourWalletProps) => {
     const classes = useStyles()
     return (
         <Box>
-            <h1 className={classes.header}> Your Wallet! </h1>
+            <h2 className={classes.header}> Dual ETH Strike=4000 Maturity=2022-3-25 </h2>
             <Box className={classes.box}>
                 <TabContext value={selectedTokenIndex.toString()}>
                     <TabList onChange={handleChange} aria-label="stake form tabs">
@@ -53,6 +56,8 @@ export const YourWallet = ({ supportedTokens }: YourWalletProps) => {
                                 <div className={classes.tabContent}>
                                     <WalletBalance token={supportedTokens[selectedTokenIndex]} />
                                     <StakeForm token={supportedTokens[selectedTokenIndex]} />
+                                    <ContractBalance token={supportedTokens[selectedTokenIndex]} />
+                                    <UnStakeForm token={supportedTokens[selectedTokenIndex]} />
                                 </div>
                             </TabPanel>
                         )

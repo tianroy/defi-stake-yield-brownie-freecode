@@ -2488,9 +2488,9 @@
   integrity sha512-x5hmIniQ9TGqOBCRqfWcmZi/U5kB0qrHMDQ9igs3nMbK0wwmYLraL4owbIwXFGR/co6/lJYJC4K/Gjn4wZY5mQ==
 
 "@usedapp/core@^0.7.0":
-  version "0.7.0"
-  resolved "https://registry.yarnpkg.com/@usedapp/core/-/core-0.7.0.tgz#f642837d2f53f76f120f99e5972499111890ed4f"
-  integrity sha512-qOUNx9bj+0eBurCdpG7kLhSKfimKRMq5T7abI9J+jikkCFj2cAuda2TSoPuGZ9eytewK1NBacAVGzUCsnc1ieA==
+  version "0.7.3"
+  resolved "https://registry.yarnpkg.com/@usedapp/core/-/core-0.7.3.tgz#867cc57a9ad95ebc00377d80fc28beb4b2174687"
+  integrity sha512-0Jaidc5E62YdkH4GUKio6Z9cP9ZK81OTgra7UAREMGHhqYuT18EVtvUbDezHqf1jDnYB5E+hZ/J2o17XLOo63w==
   dependencies:
     "@types/react" "17.0.1"
     "@uniswap/token-lists" "^1.0.0-beta.27"
