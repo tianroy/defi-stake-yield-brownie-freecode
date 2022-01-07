@@ -1,1 +1,1 @@
-export { YourWallet } from "./YourWallet.tsx.old"
+export { YourWallet } from "./YourWallet"

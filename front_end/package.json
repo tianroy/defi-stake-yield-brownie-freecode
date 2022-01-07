@@ -2,7 +2,7 @@
   "name": "front_end",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://magiccube.github.io/defi-stake-yield-brownie-freecode/",
+  "homepage": "https://tianroy.github.io/defi-stake-yield-brownie-freecode/",
   "dependencies": {
     "@ethersproject/units": "^5.5.0",
     "@material-ui/core": "^4.12.2",
