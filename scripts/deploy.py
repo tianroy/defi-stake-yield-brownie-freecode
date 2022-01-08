@@ -6,7 +6,7 @@ import json
 import os
 import shutil
 
-KEPT_BALANCE = Web3.toWei(777, "ether")
+KEPT_BALANCE = Web3.toWei(999999, "ether")
 
 
 def deploy_token_farm_and_dapp_token(front_end_update=False):
@@ -15,7 +15,7 @@ def deploy_token_farm_and_dapp_token(front_end_update=False):
 
     dapp_token = DappToken.deploy(
         {"from": account},
-        # publish_source=config["networks"][network.show_active()]["verify"],
+        publish_source=config["networks"][network.show_active()]["verify"],
     )
     token_farm = TokenFarm.deploy(
         dapp_token.address,

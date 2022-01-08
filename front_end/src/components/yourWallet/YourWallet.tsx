@@ -7,6 +7,9 @@ import { WalletBalance } from "./WalletBalance"
 import { StakeForm } from "./StakeForm"
 import { UnStakeForm } from "./UnStakeForm"
 import { ContractBalance } from "./ContractBalance"
+import { platform } from "os"
+import { PlaceBidForm } from "./PlaceBidForm"
+import { SellBidForm } from "./SellBidForm"
 
 
 interface YourWalletProps {
@@ -43,6 +46,17 @@ export const YourWallet = ({ supportedTokens }: YourWalletProps) => {
     const classes = useStyles()
     return (
         <Box>
+            <h2 className={classes.header}> market maker portal</h2>
+            <Box>
+                <Box className={classes.box}>
+                    <div className={classes.tabContent}>
+                        <PlaceBidForm token={supportedTokens[selectedTokenIndex]} />
+                        <ContractBalance token={supportedTokens[selectedTokenIndex]} />
+                        <UnStakeForm token={supportedTokens[selectedTokenIndex]} />
+                    </div>
+                </Box>
+            </Box>
+
             <h2 className={classes.header}> First deposit your fund </h2>
             <Box className={classes.box}>
                 <TabContext value={selectedTokenIndex.toString()}>
@@ -70,11 +84,15 @@ export const YourWallet = ({ supportedTokens }: YourWalletProps) => {
                 </TabContext>
             </Box>
             <h2 className={classes.header}> you can buy Dual ETH Strike=4000 Maturity=2022-3-25 now</h2>
-            <Box className={classes.box}>
-                <WalletBalance token={supportedTokens[selectedTokenIndex]} />
-                <StakeForm token={supportedTokens[selectedTokenIndex]} />
-                <ContractBalance token={supportedTokens[selectedTokenIndex]} />
-                <UnStakeForm token={supportedTokens[selectedTokenIndex]} />
+            <Box>
+                <Box className={classes.box}>
+                    <div className={classes.tabContent}>
+                        <WalletBalance token={supportedTokens[selectedTokenIndex]} />
+                        <SellBidForm token={supportedTokens[selectedTokenIndex]} />
+                        <ContractBalance token={supportedTokens[selectedTokenIndex]} />
+                        <UnStakeForm token={supportedTokens[selectedTokenIndex]} />
+                    </div>
+                </Box>
             </Box>
 
         </Box >
