@@ -46,16 +46,6 @@ export const YourWallet = ({ supportedTokens }: YourWalletProps) => {
     const classes = useStyles()
     return (
         <Box>
-            <h2 className={classes.header}> market maker portal</h2>
-            <Box>
-                <Box className={classes.box}>
-                    <div className={classes.tabContent}>
-                        <PlaceBidForm token={supportedTokens[selectedTokenIndex]} />
-                        <ContractBalance token={supportedTokens[selectedTokenIndex]} />
-                        <UnStakeForm token={supportedTokens[selectedTokenIndex]} />
-                    </div>
-                </Box>
-            </Box>
 
             <h2 className={classes.header}> First deposit your fund </h2>
             <Box className={classes.box}>
@@ -89,6 +79,17 @@ export const YourWallet = ({ supportedTokens }: YourWalletProps) => {
                     <div className={classes.tabContent}>
                         <WalletBalance token={supportedTokens[selectedTokenIndex]} />
                         <SellBidForm token={supportedTokens[selectedTokenIndex]} />
+                        <ContractBalance token={supportedTokens[selectedTokenIndex]} />
+                        <UnStakeForm token={supportedTokens[selectedTokenIndex]} />
+                    </div>
+                </Box>
+            </Box>
+
+            <h2 className={classes.header}> market maker portal</h2>
+            <Box>
+                <Box className={classes.box}>
+                    <div className={classes.tabContent}>
+                        <PlaceBidForm token={supportedTokens[selectedTokenIndex]} />
                         <ContractBalance token={supportedTokens[selectedTokenIndex]} />
                         <UnStakeForm token={supportedTokens[selectedTokenIndex]} />
                     </div>
