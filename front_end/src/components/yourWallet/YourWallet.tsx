@@ -11,6 +11,13 @@ import { platform } from "os"
 import { PlaceBidForm } from "./PlaceBidForm"
 import { SellBidForm } from "./SellBidForm"
 import { OptionSupply } from "./OptionSupply"
+import { CancelBidForm } from "./CancelBidForm"
+import { ExerciseForm } from "./ExerciseForm"
+import { UnusedPremium } from "./UnusedPremium"
+import { WhenExpiry } from "./WhenExpiry"
+import { UserSize } from "./UserSize"
+
+
 
 
 interface YourWalletProps {
@@ -81,18 +88,26 @@ export const YourWallet = ({ supportedTokens }: YourWalletProps) => {
                         <WalletBalance token={supportedTokens[selectedTokenIndex]} />
                         <SellBidForm token={supportedTokens[selectedTokenIndex]} />
                         <OptionSupply token={supportedTokens[selectedTokenIndex]} />
-                        <UnStakeForm token={supportedTokens[selectedTokenIndex]} />
+                        <ExerciseForm token={supportedTokens[selectedTokenIndex]} />
                     </div>
                 </Box>
             </Box>
-
+            <h5 className={classes.header}> </h5>
+            <Box>
+                <Box className={classes.box}>
+                    <div className={classes.tabContent}>
+                        <WhenExpiry token={supportedTokens[selectedTokenIndex]} />
+                        <UserSize token={supportedTokens[selectedTokenIndex]} />
+                    </div>
+                </Box>
+            </Box>
             <h2 className={classes.header}> market maker portal</h2>
             <Box>
                 <Box className={classes.box}>
                     <div className={classes.tabContent}>
                         <PlaceBidForm token={supportedTokens[selectedTokenIndex]} />
-                        <ContractBalance token={supportedTokens[selectedTokenIndex]} />
-                        <UnStakeForm token={supportedTokens[selectedTokenIndex]} />
+                        <UnusedPremium token={supportedTokens[selectedTokenIndex]} />
+                        <CancelBidForm token={supportedTokens[selectedTokenIndex]} />
                     </div>
                 </Box>
             </Box>

@@ -5,20 +5,21 @@ import TokenFarm from "../chain-info/contracts/TokenFarm.json"
 import { Contract } from "@ethersproject/contracts"
 import networkMapping from "../chain-info/deployments/map.json"
 
-export const usePlaceBid = (amount: string) => {
-
+export const useCancelBid = (tokenAddress: string) => {
+    // address
+    // abi
+    // chainId
     const { chainId } = useEthers()
     const { abi } = TokenFarm
     const tokenFarmAddress = chainId ? networkMapping[String(chainId)]["TokenFarm"][0] : constants.AddressZero
     const tokenFarmInterface = new utils.Interface(abi)
     const tokenFarmContract = new Contract(tokenFarmAddress, tokenFarmInterface)
 
-    const { send: PlaceBidSend, state: mystate } =
-        useContractFunction(tokenFarmContract, "placeBid", {
-            transactionName: 'Place bid'
+    const { send: CancelBidSend, state: mystate } =
+        useContractFunction(tokenFarmContract, "cancelBid", {
+            transactionName: 'Cancel all your bids'
         })
-    const PlaceBid = () => { PlaceBidSend([amount, "1000"]) }
-    //debugger;
-    return { PlaceBid, mystate }
+    const CancelBid = () => { CancelBidSend(tokenAddress) }
+    return { CancelBid, mystate }
 }
 

@@ -108,7 +108,7 @@ contract TokenFarm is Ownable {
         // create fake option for testing
         option_struct memory option = option_struct({
             strike: 3300, // in USDC
-            expiry: block.timestamp + 60, // 30seconds option, for testing purpose
+            expiry: block.timestamp + 1 days, // 30seconds option, for testing purpose
             supply: 0, // after buyer place bid, supply will increase, in producation initial value =0
             order: order_for_test
         });
@@ -410,6 +410,14 @@ contract TokenFarm is Ownable {
 
     function userBalance(address _user) public view returns (uint256) {
         return cash_balance[_user];
+    }
+
+    function userUnusedPremium(address _user) public view returns (uint256) {
+        return user[_user][id].unusedpremium;
+    }
+
+    function userSize(address _user) public view returns (uint256) {
+        return (user[_user][id].size * 1e18) / op[id].strike;
     }
 
     function getSupply() public view returns (uint256) {
