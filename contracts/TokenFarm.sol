@@ -412,6 +412,10 @@ contract TokenFarm is Ownable {
         return cash_balance[_user];
     }
 
+    function getSupply() public view returns (uint256) {
+        return op[id].supply;
+    }
+
     function getETH() public view returns (uint256) {
         (uint256 price, uint256 decimals) = getTokenValue(ethAddress);
         return price;

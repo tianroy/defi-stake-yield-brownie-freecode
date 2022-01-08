@@ -20,8 +20,7 @@ export const UnStakeForm = ({ token }: UnStakeFormProps) => {
     }
 
 
-    console.log("here")
-    console.log(mystate.status)
+    //console.log(mystate.status)
     const isMiningUnstake = mystate.status === "Mining"
 
     return (

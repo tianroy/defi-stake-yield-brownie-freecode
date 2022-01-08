@@ -4,12 +4,13 @@ import { useEthers, useTokenBalance, useNotifications } from "@usedapp/core"
 import { formatUnits } from "@ethersproject/units"
 import { Button, Input, CircularProgress, Snackbar } from "@material-ui/core"
 import Alert from "@material-ui/lab/Alert"
-import { useStakeTokens } from "../../hooks"
+import { useSellBid } from "../../hooks"
 import { utils } from "ethers"
 
 export interface SellBidFormProps {
     token: Token
 }
+
 
 export const SellBidForm = ({ token }: SellBidFormProps) => {
     const { address: tokenAddress, name } = token
@@ -25,29 +26,16 @@ export const SellBidForm = ({ token }: SellBidFormProps) => {
         console.log(newAmount)
     }
 
-    const { approveAndStake, state: approveAndStakeErc20State } = useStakeTokens(tokenAddress)
-    const handleStakeSubmit = () => {
-        const amountAsWei = utils.parseEther(amount.toString())
-        return approveAndStake(amountAsWei.toString())
+    const amountAsWei = utils.parseEther(amount.toString())
+    const { Sellbid, mystate } = useSellBid(amountAsWei.toString())
+    const handleSellBid = () => {
+        return Sellbid()
     }
 
-    const isMining = approveAndStakeErc20State.status === "Mining"
-    const [showErc20ApprovalSuccess, setShowErc20ApprovalSuccess] = useState(false)
-    const [showStakeTokenSuccess, setShowStakeTokenSuccess] = useState(false)
-    const handleCloseSnack = () => {
-        setShowErc20ApprovalSuccess(false)
-        setShowStakeTokenSuccess(false)
-    }
+    //console.log(mystate.status)
+    const isMiningUnstake = mystate.status === "Mining"
 
-    useEffect(() => {
-        if (notifications.filter(
-            (notification) =>
-                notification.type === "transactionSucceed" &&
-                notification.transactionName === "Approve ERC20 transfer").length > 0) {
-            setShowErc20ApprovalSuccess(true)
-            setShowStakeTokenSuccess(false)
-        }
-    }, [notifications, showErc20ApprovalSuccess, showStakeTokenSuccess])
+
 
     return (
         <>
@@ -55,30 +43,13 @@ export const SellBidForm = ({ token }: SellBidFormProps) => {
                 <Input
                     onChange={handleInputChange} />
                 <Button
-                    onClick={handleStakeSubmit}
+                    onClick={handleSellBid}
                     color="primary"
-                    size="large"
-                    disabled={isMining}>
-                    {isMining ? <CircularProgress size={26} /> : "Invest"}
+                    size="small"
+                    disabled={isMiningUnstake}>
+                    {isMiningUnstake ? <CircularProgress size={26} /> : "Invest"}
                 </Button>
             </div>
-            <Snackbar
-                open={showErc20ApprovalSuccess}
-                autoHideDuration={5000}
-                onClose={handleCloseSnack}
-            >
-                <Alert onClose={handleCloseSnack} severity="success">
-                    ERC-20 token transfer approved! Now approve the 2nd transaction.
-                </Alert>
-            </Snackbar>
-            <Snackbar
-                open={showStakeTokenSuccess}
-                autoHideDuration={5000}
-                onClose={handleCloseSnack}>
-                <Alert onClose={handleCloseSnack} severity="success">
-                    Tokens Staked!
-                </Alert>
-            </Snackbar>
         </>
     )
 }
