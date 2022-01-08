@@ -107,7 +107,7 @@ contract TokenFarm is Ownable {
         // ********************
         // create fake option for testing
         option_struct memory option = option_struct({
-            strike: 3300, // in USDC
+            strike: 3300 * 1e18, // in USDC
             expiry: block.timestamp + 1 days, // 30seconds option, for testing purpose
             supply: 0, // after buyer place bid, supply will increase, in producation initial value =0
             order: order_for_test
@@ -392,7 +392,9 @@ contract TokenFarm is Ownable {
         ////Price should never be negative thus cast int to unit is ok
         ////Price is 8 decimal places and will require 1e10 correction later to 18 places
         //ethPrice = uint256(price);
-        ethPrice = 3799;
+        //ethPrice = 3799;
+        (uint256 price, uint256 decimals) = getTokenValue(ethAddress);
+        ethPrice = price * 1e10;
     }
 
     function deposit() public payable {
@@ -408,6 +410,11 @@ contract TokenFarm is Ownable {
         return op[id].order;
     }
 
+    function getBestBid() public view returns (uint256) {
+        //return bids[id][op[id].order[op[id].order.length - 1]].price;
+        return bids[id].length - 1;
+    }
+
     function userBalance(address _user) public view returns (uint256) {
         return cash_balance[_user];
     }
@@ -417,7 +424,7 @@ contract TokenFarm is Ownable {
     }
 
     function userSize(address _user) public view returns (uint256) {
-        return (user[_user][id].size * 1e18) / op[id].strike;
+        return user[_user][id].size / op[id].strike;
     }
 
     function getSupply() public view returns (uint256) {
@@ -426,7 +433,7 @@ contract TokenFarm is Ownable {
 
     function getETH() public view returns (uint256) {
         (uint256 price, uint256 decimals) = getTokenValue(ethAddress);
-        return price;
+        return price * 1e10;
     }
 
     function SecondToExpiry() public view returns (uint256) {
@@ -467,7 +474,7 @@ contract TokenFarm is Ownable {
         if (uniqueTokensStaked[msg.sender] == 1) {
             stakers.push(msg.sender);
         }
-        cash_balance[msg.sender] += getUserSingleTokenValue(msg.sender, _token);
+        cash_balance[msg.sender] = getUserTotalValue(msg.sender);
     }
 
     function unstakeTokens(address _token) public {

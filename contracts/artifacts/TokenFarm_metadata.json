@@ -180,6 +180,19 @@
 			},
 			{
 				"inputs": [],
+				"name": "ethAddress",
+				"outputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
 				"name": "ethPrice",
 				"outputs": [
 					{
@@ -196,6 +209,19 @@
 				"name": "exercise",
 				"outputs": [],
 				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "getBestBid",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
 				"type": "function"
 			},
 			{
@@ -219,6 +245,19 @@
 			},
 			{
 				"inputs": [],
+				"name": "getETH",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
 				"name": "getEthPrice",
 				"outputs": [],
 				"stateMutability": "nonpayable",
@@ -232,6 +271,19 @@
 						"internalType": "uint256[]",
 						"name": "",
 						"type": "uint256[]"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "getSupply",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
 					}
 				],
 				"stateMutability": "view",
@@ -614,8 +666,52 @@
 				"type": "function"
 			},
 			{
-				"inputs": [],
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "_user",
+						"type": "address"
+					}
+				],
 				"name": "userBalance",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "_user",
+						"type": "address"
+					}
+				],
+				"name": "userSize",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "_user",
+						"type": "address"
+					}
+				],
+				"name": "userUnusedPremium",
 				"outputs": [
 					{
 						"internalType": "uint256",
@@ -716,11 +812,11 @@
 			]
 		},
 		"contracts/TokenFarm.sol": {
-			"keccak256": "0xd9e7aec87a7f0f7b9770f9853632489702240b600555d43c5dc3e75ecb13b8cf",
+			"keccak256": "0x8b83108bb013259fc00e0aade3e34fde559218fd2590f90a32251b768b11fb01",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://9aaefda80f7b5fa07b7d002b8884f3299387e345222bf0bac8ff325186f0637c",
-				"dweb:/ipfs/QmWjtJezEW8v5WbV75FnDXZo1UY4Yz3vECJLAS6SbDxpJn"
+				"bzz-raw://9df8bce4149be5d6f7d2246ca7d38f0a11752b34f17cdb8544259a2c6dfa5c99",
+				"dweb:/ipfs/QmQVVUUHnPHjoDq7hnnymhyfPgYq44bTFrY1vqbTEXCAa7"
 			]
 		}
 	},

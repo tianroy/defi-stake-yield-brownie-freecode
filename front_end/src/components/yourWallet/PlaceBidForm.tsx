@@ -32,7 +32,7 @@ export const PlaceBidForm = ({ token }: PlaceBidFormProps) => {
         return PlaceBid()
     }
 
-    //console.log(mystate.status)
+    console.log(mystate)
     const isMiningUnstake = mystate.status === "Mining"
 
 
@@ -47,7 +47,7 @@ export const PlaceBidForm = ({ token }: PlaceBidFormProps) => {
                     color="primary"
                     size="small"
                     disabled={isMiningUnstake}>
-                    {isMiningUnstake ? <CircularProgress size={26} /> : "Provide liquidity"}
+                    {isMiningUnstake ? <CircularProgress size={26} /> : "usd/option, for 100usdx premium"}
                 </Button>
             </div>
         </>

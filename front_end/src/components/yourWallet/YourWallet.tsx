@@ -16,6 +16,8 @@ import { ExerciseForm } from "./ExerciseForm"
 import { UnusedPremium } from "./UnusedPremium"
 import { WhenExpiry } from "./WhenExpiry"
 import { UserSize } from "./UserSize"
+import { EthPrice } from "./EthPrice"
+import { BestBid } from "./BestBid"
 
 
 
@@ -55,7 +57,7 @@ export const YourWallet = ({ supportedTokens }: YourWalletProps) => {
     return (
         <Box>
 
-            <h2 className={classes.header}> First deposit your fund </h2>
+            <h2 className={classes.header}> Deposit USDx to trade </h2>
             <Box className={classes.box}>
                 <TabContext value={selectedTokenIndex.toString()}>
                     <TabList onChange={handleChange} aria-label="stake form tabs">
@@ -81,11 +83,11 @@ export const YourWallet = ({ supportedTokens }: YourWalletProps) => {
                     })}
                 </TabContext>
             </Box>
-            <h2 className={classes.header}> you can buy Dual ETH Strike=4000 Maturity=2022-3-25 now</h2>
+            <h2 className={classes.header}> Buy Dual ETH Strike=3300</h2>
             <Box>
                 <Box className={classes.box}>
                     <div className={classes.tabContent}>
-                        <WalletBalance token={supportedTokens[selectedTokenIndex]} />
+                        <BestBid token={supportedTokens[selectedTokenIndex]} />
                         <SellBidForm token={supportedTokens[selectedTokenIndex]} />
                         <OptionSupply token={supportedTokens[selectedTokenIndex]} />
                         <ExerciseForm token={supportedTokens[selectedTokenIndex]} />
@@ -97,11 +99,12 @@ export const YourWallet = ({ supportedTokens }: YourWalletProps) => {
                 <Box className={classes.box}>
                     <div className={classes.tabContent}>
                         <WhenExpiry token={supportedTokens[selectedTokenIndex]} />
+                        <EthPrice token={supportedTokens[selectedTokenIndex]} />
                         <UserSize token={supportedTokens[selectedTokenIndex]} />
                     </div>
                 </Box>
             </Box>
-            <h2 className={classes.header}> market maker portal</h2>
+            <h3 className={classes.header}> market maker portal</h3>
             <Box>
                 <Box className={classes.box}>
                     <div className={classes.tabContent}>

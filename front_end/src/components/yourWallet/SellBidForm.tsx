@@ -32,7 +32,7 @@ export const SellBidForm = ({ token }: SellBidFormProps) => {
         return SellBid()
     }
 
-    //console.log(mystate.status)
+    console.log(mystate)
     const isMiningUnstake = mystate.status === "Mining"
 
 

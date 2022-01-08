@@ -31,7 +31,7 @@ export const OptionSupply = ({ token }: OptionSupplyProps) => {
                 args: [], // Method arguments - address to be checked for balance
             }
         ) ?? [];
-    //console.log("account:", account)
+    //console.log("supply:", tokenBalance / 1e18)
     //debugger;
 
     const formattedTokenBalance: number = tokenBalance ? parseFloat(formatUnits(tokenBalance, 18)) : 0

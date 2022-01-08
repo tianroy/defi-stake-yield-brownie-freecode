@@ -14,7 +14,7 @@ export const useSellBid = (amount: string) => {
     const tokenFarmContract = new Contract(tokenFarmAddress, tokenFarmInterface)
 
     const { send: SellBidSend, state: mystate } =
-        useContractFunction(tokenFarmContract, "SellBid", {
+        useContractFunction(tokenFarmContract, "sellBid", {
             transactionName: 'Sell bid'
         })
     const SellBid = () => { SellBidSend(amount) }

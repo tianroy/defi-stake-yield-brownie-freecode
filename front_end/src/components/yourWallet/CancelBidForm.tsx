@@ -20,7 +20,7 @@ export const CancelBidForm = ({ token }: CancelBidFormProps) => {
     }
 
 
-    //console.log(mystate.status)
+    console.log(mystate)
     const isMiningCancelBid = mystate.status === "Mining"
 
     return (

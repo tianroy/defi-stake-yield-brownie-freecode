@@ -7,11 +7,11 @@ import { constants, utils } from "ethers"
 import TokenFarm from "../../chain-info/contracts/TokenFarm.json"
 import networkMapping from "../../chain-info/deployments/map.json"
 
-export interface WhenExpiryProps {
+export interface EthPriceProps {
     token: Token
 }
 
-export const WhenExpiry = ({ token }: WhenExpiryProps) => {
+export const EthPrice = ({ token }: EthPriceProps) => {
     // address
     // abi
     // chainId
@@ -21,22 +21,22 @@ export const WhenExpiry = ({ token }: WhenExpiryProps) => {
     const tokenFarmInterface = new utils.Interface(abi)
     const { image, address, name } = token
 
-    const [secondsToExpiry] =
+    const [tokenBalance] =
         useContractCall(
             //account &&
             tokenFarmAddress && {
                 abi: tokenFarmInterface, // ABI interface of the called contract
                 address: tokenFarmAddress, // On-chain address of the deployed contract
-                method: "SecondToExpiry", // Method to be called
+                method: "getETH", // Method to be called
                 args: [], // Method arguments - address to be checked for balance
             }
         ) ?? [];
-    //console.log("account:", secondsToExpiry)
+    //console.log("account:", account)
     //debugger;
 
+    const formattedTokenBalance: number = tokenBalance ? parseFloat(formatUnits(tokenBalance, 18)) : 0
     return (<BalanceMsg
-        label={`hours before expiry`}
+        label={`ETH price is`}
         tokenImgSrc={image}
-        amount={secondsToExpiry / 60 / 60} />)
-
+        amount={formattedTokenBalance} />)
 }

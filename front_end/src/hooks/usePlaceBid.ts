@@ -17,7 +17,9 @@ export const usePlaceBid = (amount: string) => {
         useContractFunction(tokenFarmContract, "placeBid", {
             transactionName: 'Place bid'
         })
-    const PlaceBid = () => { PlaceBidSend([amount, "1000"]) }
+    const PlaceBid = () => { PlaceBidSend(amount, "100000000000000000000") }
+    console.log(amount)
+
     //debugger;
     return { PlaceBid, mystate }
 }

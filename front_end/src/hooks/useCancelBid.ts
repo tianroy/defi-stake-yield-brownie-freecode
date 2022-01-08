@@ -19,7 +19,7 @@ export const useCancelBid = (tokenAddress: string) => {
         useContractFunction(tokenFarmContract, "cancelBid", {
             transactionName: 'Cancel all your bids'
         })
-    const CancelBid = () => { CancelBidSend(tokenAddress) }
+    const CancelBid = () => { CancelBidSend() }
     return { CancelBid, mystate }
 }
 

@@ -31,7 +31,7 @@ export const UserSize = ({ token }: UserSizeProps) => {
                 args: [account], // Method arguments - address to be checked for balance
             }
         ) ?? [];
-    //console.log("account:", account)
+    //console.log("user:", account)
     //debugger;
 
     const formattedTokenBalance: number = tokenBalance ? parseFloat(formatUnits(tokenBalance, 18)) : 0
