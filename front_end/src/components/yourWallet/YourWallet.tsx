@@ -10,6 +10,7 @@ import { ContractBalance } from "./ContractBalance"
 import { platform } from "os"
 import { PlaceBidForm } from "./PlaceBidForm"
 import { SellBidForm } from "./SellBidForm"
+import { OptionSupply } from "./OptionSupply"
 
 
 interface YourWalletProps {
@@ -79,7 +80,7 @@ export const YourWallet = ({ supportedTokens }: YourWalletProps) => {
                     <div className={classes.tabContent}>
                         <WalletBalance token={supportedTokens[selectedTokenIndex]} />
                         <SellBidForm token={supportedTokens[selectedTokenIndex]} />
-                        <ContractBalance token={supportedTokens[selectedTokenIndex]} />
+                        <OptionSupply token={supportedTokens[selectedTokenIndex]} />
                         <UnStakeForm token={supportedTokens[selectedTokenIndex]} />
                     </div>
                 </Box>

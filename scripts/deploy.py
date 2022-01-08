@@ -15,7 +15,7 @@ def deploy_token_farm_and_dapp_token(front_end_update=False):
 
     dapp_token = DappToken.deploy(
         {"from": account},
-        publish_source=config["networks"][network.show_active()]["verify"],
+        # publish_source=config["networks"][network.show_active()]["verify"],
     )
     token_farm = TokenFarm.deploy(
         dapp_token.address,

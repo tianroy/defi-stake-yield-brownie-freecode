@@ -46,7 +46,7 @@ contract TokenFarm is Ownable {
     address payable contract_address;
 
     // store cash balance for each user, not used in any option sub-pool
-    mapping(address => int256) public cash_balance; // for testing, this value can be negtive, but not allowed in production
+    mapping(address => uint256) public cash_balance; // for testing, this value can be negtive, but not allowed in production
 
     // bid_struct: each bid in bids (bids is the order book for each option)
     struct bid_struct {
