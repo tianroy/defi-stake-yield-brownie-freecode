@@ -36,7 +36,7 @@ export const ContractBalance = ({ token }: ContractBalanceProps) => {
 
     const formattedTokenBalance: number = tokenBalance ? parseFloat(formatUnits(tokenBalance, 18)) : 0
     return (<BalanceMsg
-        label={`your USD(=DAPP) balance in the pool is`}
+        label={`your USDx balance in the pool is`}
         tokenImgSrc={image}
         amount={formattedTokenBalance} />)
 }

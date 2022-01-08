@@ -36,7 +36,7 @@ export const OptionSupply = ({ token }: OptionSupplyProps) => {
 
     const formattedTokenBalance: number = tokenBalance ? parseFloat(formatUnits(tokenBalance, 18)) : 0
     return (<BalanceMsg
-        label={`your USD(=DAPP) balance in the pool is`}
+        label={`max USDX supply is`}
         tokenImgSrc={image}
         amount={formattedTokenBalance} />)
 }

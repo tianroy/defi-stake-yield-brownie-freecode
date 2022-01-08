@@ -44,7 +44,7 @@ export const Main = () => {
         {
             image: dapp,
             address: dappTokenAddress,
-            name: "DAPP"
+            name: "USDx"
         },
         {
             image: eth,

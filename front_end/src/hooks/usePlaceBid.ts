@@ -5,7 +5,7 @@ import TokenFarm from "../chain-info/contracts/TokenFarm.json"
 import { Contract } from "@ethersproject/contracts"
 import networkMapping from "../chain-info/deployments/map.json"
 
-export const useSellBid = (amount: string) => {
+export const usePlaceBid = (amount: string) => {
 
     const { chainId } = useEthers()
     const { abi } = TokenFarm
@@ -13,11 +13,11 @@ export const useSellBid = (amount: string) => {
     const tokenFarmInterface = new utils.Interface(abi)
     const tokenFarmContract = new Contract(tokenFarmAddress, tokenFarmInterface)
 
-    const { send: SellBidSend, state: mystate } =
-        useContractFunction(tokenFarmContract, "SellBid", {
-            transactionName: 'Sell bid'
+    const { send: PlaceBidSend, state: mystate } =
+        useContractFunction(tokenFarmContract, "placeBid", {
+            transactionName: 'Place bid'
         })
-    const SellBid = () => { SellBidSend(amount) }
-    return { SellBid, mystate }
+    const PlaceBid = () => { PlaceBidSend(amount, 100e18) }
+    return { PlaceBid, mystate }
 }
 

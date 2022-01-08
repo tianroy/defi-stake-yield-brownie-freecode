@@ -27,9 +27,9 @@ export const SellBidForm = ({ token }: SellBidFormProps) => {
     }
 
     const amountAsWei = utils.parseEther(amount.toString())
-    const { Sellbid, mystate } = useSellBid(amountAsWei.toString())
+    const { SellBid, mystate } = useSellBid(amountAsWei.toString())
     const handleSellBid = () => {
-        return Sellbid()
+        return SellBid()
     }
 
     //console.log(mystate.status)
