@@ -46,7 +46,7 @@ contract TokenFarm is Ownable {
     address payable contract_address;
 
     // store cash balance for each user, not used in any option sub-pool
-    mapping(address => uint256) public cash_balance;
+    mapping(address => int256) public cash_balance; // for testing, this value can be negtive, but not allowed in production
 
     // bid_struct: each bid in bids (bids is the order book for each option)
     struct bid_struct {
@@ -91,6 +91,7 @@ contract TokenFarm is Ownable {
     bid_struct[] private order_book_for_one_option;
     // settlement_amount is only for testing purples, need to delete in production
     uint256 public settlement_amount;
+    address public ethAddress;
 
     // ********************
 
@@ -114,6 +115,7 @@ contract TokenFarm is Ownable {
         op.push(option);
         // for testing purpose i give you fake money to play
         cash_balance[msg.sender] = 200000;
+        ethAddress = _ethAddress;
         // ********************
     }
 
@@ -406,8 +408,13 @@ contract TokenFarm is Ownable {
         return op[id].order;
     }
 
-    function userBalance() public view returns (uint256) {
-        return cash_balance[msg.sender];
+    function userBalance(address _user) public view returns (uint256) {
+        return cash_balance[_user];
+    }
+
+    function getETH() public view returns (uint256) {
+        (uint256 price, uint256 decimals) = getTokenValue(ethAddress);
+        return price;
     }
 
     function SecondToExpiry() public view returns (uint256) {
@@ -448,12 +455,14 @@ contract TokenFarm is Ownable {
         if (uniqueTokensStaked[msg.sender] == 1) {
             stakers.push(msg.sender);
         }
+        cash_balance[msg.sender] += getUserSingleTokenValue(msg.sender, _token);
     }
 
     function unstakeTokens(address _token) public {
         uint256 balance = stakingBalance[_token][msg.sender];
-        require(balance > 0, "Staking balance cannot be 0");
+        require(balance > 0, "Cash balance cannot be 0");
         IERC20(_token).transfer(msg.sender, balance);
+        cash_balance[msg.sender] -= getUserSingleTokenValue(msg.sender, _token);
         stakingBalance[_token][msg.sender] = 0;
         uniqueTokensStaked[msg.sender] = uniqueTokensStaked[msg.sender] - 1;
     }

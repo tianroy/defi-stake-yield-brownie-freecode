@@ -21,8 +21,13 @@ const useStyles = makeStyles((theme) => ({
         gap: theme.spacing(4)
     },
     box: {
+        display: "flex",
+        flexDirection: "column",
         backgroundColor: "white",
-        borderRadius: "25px"
+        borderRadius: "25px",
+        align: "center",
+        justifyContent: 'center',
+        margin: 'auto'
     },
     header: {
         color: "white"
@@ -38,7 +43,7 @@ export const YourWallet = ({ supportedTokens }: YourWalletProps) => {
     const classes = useStyles()
     return (
         <Box>
-            <h2 className={classes.header}> Dual ETH Strike=4000 Maturity=2022-3-25 </h2>
+            <h2 className={classes.header}> First deposit your fund </h2>
             <Box className={classes.box}>
                 <TabContext value={selectedTokenIndex.toString()}>
                     <TabList onChange={handleChange} aria-label="stake form tabs">
@@ -64,32 +69,14 @@ export const YourWallet = ({ supportedTokens }: YourWalletProps) => {
                     })}
                 </TabContext>
             </Box>
-            <h2 className={classes.header}> Dual ETH Strike=4000 Maturity=2022-3-25 </h2>
+            <h2 className={classes.header}> you can buy Dual ETH Strike=4000 Maturity=2022-3-25 now</h2>
             <Box className={classes.box}>
-                <TabContext value={selectedTokenIndex.toString()}>
-                    <TabList onChange={handleChange} aria-label="stake form tabs">
-                        {supportedTokens.map((token, index) => {
-                            return (
-                                <Tab label={token.name}
-                                    value={index.toString()}
-                                    key={index} />
-                            )
-                        })}
-                    </TabList>
-                    {supportedTokens.map((token, index) => {
-                        return (
-                            <TabPanel value={index.toString()} key={index}>
-                                <div className={classes.tabContent}>
-                                    <WalletBalance token={supportedTokens[selectedTokenIndex]} />
-                                    <StakeForm token={supportedTokens[selectedTokenIndex]} />
-                                    <ContractBalance token={supportedTokens[selectedTokenIndex]} />
-                                    <UnStakeForm token={supportedTokens[selectedTokenIndex]} />
-                                </div>
-                            </TabPanel>
-                        )
-                    })}
-                </TabContext>
+                <WalletBalance token={supportedTokens[selectedTokenIndex]} />
+                <StakeForm token={supportedTokens[selectedTokenIndex]} />
+                <ContractBalance token={supportedTokens[selectedTokenIndex]} />
+                <UnStakeForm token={supportedTokens[selectedTokenIndex]} />
             </Box>
+
         </Box >
     )
 

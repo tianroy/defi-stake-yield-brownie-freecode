@@ -51,11 +51,11 @@ export const Main = () => {
             address: wethTokenAddress,
             name: "WETH"
         },
-        {
-            image: dai,
-            address: fauTokenAddress,
-            name: "DAI"
-        }
+        /*     {
+                image: dai,
+                address: fauTokenAddress,
+                name: "DAI"
+            } */
     ]
 
     return (<>
