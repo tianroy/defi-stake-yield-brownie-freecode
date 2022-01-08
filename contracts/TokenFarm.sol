@@ -412,7 +412,7 @@ contract TokenFarm is Ownable {
 
     function getBestBid() public view returns (uint256) {
         //return bids[id][op[id].order[op[id].order.length - 1]].price;
-        return bids[id].length - 1;
+        return op[id].order.length;
     }
 
     function userBalance(address _user) public view returns (uint256) {
