@@ -20,19 +20,19 @@ export const SellBidForm = ({ token }: SellBidFormProps) => {
     const { notifications } = useNotifications()
 
     const [amount, setAmount] = useState<number>(0)
-    const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const newAmount = event.target.value === "" ? 0 : Number(event.target.value)
-        setAmount(newAmount)
-        console.log('SellBidForm.newAmount', newAmount)
-    }
 
-    const amountAsWei = utils.parseEther(amount.toString())
-    const { SellBid, mystate } = useSellBid(amountAsWei.toString())
+    const { SellBid, mystate } = useSellBid(amount)
     const handleSellBid = () => {
         return SellBid()
     }
 
-    console.log(mystate)
+    const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const newAmount = event.target.value === "" ? 0 : Number(event.target.value)
+        setAmount(newAmount)
+    }
+
+
+    console.log("sell bid state =", mystate)
     const isMiningUnstake = mystate.status === "Mining"
 
 
@@ -47,7 +47,7 @@ export const SellBidForm = ({ token }: SellBidFormProps) => {
                     color="primary"
                     size="small"
                     disabled={isMiningUnstake}>
-                    {isMiningUnstake ? <CircularProgress size={26} /> : "Invest"}
+                    {isMiningUnstake ? <CircularProgress size={26} /> : "购买"}
                 </Button>
             </div>
         </>

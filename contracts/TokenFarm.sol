@@ -237,6 +237,7 @@ contract TokenFarm is Ownable {
                 // last one is the highest one, pop the highest bid
                 op[id].order.pop();
                 remain -= each_size;
+                i--;
             } else {
                 // update buyer
                 user[bids[id][op[id].order[i]].user_id][id].size += remain;
@@ -251,7 +252,6 @@ contract TokenFarm is Ownable {
                 bids[id][op[id].order[i]].size -= remain;
                 remain = 0;
             }
-            i--;
         }
         // update seller
         getEthPrice();
@@ -423,7 +423,7 @@ contract TokenFarm is Ownable {
     }
 
     function userSize(address _user) public view returns (uint256) {
-        return user[_user][id].size / op[id].strike;
+        return user[_user][id].size;
     }
 
     function getSupply() public view returns (uint256) {
@@ -433,6 +433,10 @@ contract TokenFarm is Ownable {
     function getETH() public view returns (uint256) {
         (uint256 price, uint256 decimals) = getTokenValue(ethAddress);
         return price * 1e10;
+    }
+
+    function getSide(address _user) public view returns (uint256) {
+        return uint256(user[_user][id].side);
     }
 
     function SecondToExpiry() public view returns (uint256) {

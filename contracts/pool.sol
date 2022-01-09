@@ -217,6 +217,7 @@ contract pool {
                 // last one is the highest one, pop the highest bid
                 op[id].order.pop();
                 remain -= each_size;
+                i--;
             } else {
                 // update buyer
                 user[bids[id][op[id].order[i]].user_id][id].size += remain;
@@ -231,7 +232,6 @@ contract pool {
                 bids[id][op[id].order[i]].size -= remain;
                 remain = 0;
             }
-            i--;
         }
         // update seller
         getEthPrice();

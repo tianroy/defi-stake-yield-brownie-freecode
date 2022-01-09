@@ -32,12 +32,12 @@ export const PlaceBidForm = ({ token }: PlaceBidFormProps) => {
         const newAmount = (event.target.value === "") ? 0 : Number(event.target.value)
         // TODO: @henry add .....
         setAmount(newAmount)
-        console.log('PlaceBidForm.newAmount', newAmount)
+        //console.log('PlaceBidForm.newAmount', newAmount)
     }
     const handlePremiumChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const newPremium = event.target.value === "" ? 0 : Number(event.target.value)
         setPremium(newPremium)
-        console.log('PlaceBidForm.newPremium', newPremium)
+        //console.log('PlaceBidForm.newPremium', newPremium)
     }
 
 

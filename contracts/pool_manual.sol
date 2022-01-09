@@ -90,6 +90,7 @@ function sellBid(uint256 seller_size) public {
             // 删除最贵的bid指针
             op[id].order.pop();
             remain -= each_size;
+            i--;
         } else {
             // update buyer
             // 逻辑类似 但是这个bidm没有完全被拿走，指针还存在，只是size变少
@@ -105,7 +106,6 @@ function sellBid(uint256 seller_size) public {
             bids[id][op[id].order[i]].size -= remain;
             remain = 0;
         }
-        i--;
     }
     // update seller
     getEthPrice();

@@ -6,7 +6,6 @@ import { Tab } from "@material-ui/core"
 import { WalletBalance } from "./WalletBalance"
 import { StakeForm } from "./StakeForm"
 import { UnStakeForm } from "./UnStakeForm"
-import { ContractBalance } from "./ContractBalance"
 import { platform } from "os"
 import { PlaceBidForm } from "./PlaceBidForm"
 import { SellBidForm } from "./SellBidForm"
@@ -18,6 +17,8 @@ import { WhenExpiry } from "./WhenExpiry"
 import { UserSize } from "./UserSize"
 import { EthPrice } from "./EthPrice"
 import { BestBid } from "./BestBid"
+import { ContractBalance } from "./ContractBalance"
+
 
 
 

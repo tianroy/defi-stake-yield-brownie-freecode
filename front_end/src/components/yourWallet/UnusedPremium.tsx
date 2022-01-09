@@ -22,7 +22,7 @@ export const UnusedPremium = ({ token }: UnusedPremiumProps) => {
     const tokenFarmInterface = new utils.Interface(abi)
     const { image, address, name } = token
 
-    const [tokenBalance] =
+    const [premium] =
         useContractCall(
             account &&
             tokenFarmAddress && {
@@ -32,10 +32,23 @@ export const UnusedPremium = ({ token }: UnusedPremiumProps) => {
                 args: [account], // Method arguments - address to be checked for balance
             }
         ) ?? [];
-    //console.log("account:", account)
+
+    //console.log("userUnusedPremium:", premium)
+
+    const [usder_side] =
+        useContractCall(
+            account &&
+            tokenFarmAddress && {
+                abi: tokenFarmInterface, // ABI interface of the called contract
+                address: tokenFarmAddress, // On-chain address of the deployed contract
+                method: "getSide", // Method to be called
+                args: [account], // Method arguments - address to be checked for balance
+            }
+        ) ?? ["side error"];
+    console.log("user-side:", Number(usder_side))
     //debugger;
 
-    const formattedTokenBalance: number = tokenBalance ? parseFloat(formatUnits(tokenBalance, 18)) : 0
+    const formattedTokenBalance: number = premium ? parseFloat(formatUnits(premium, 18)) : 0
     return (<ContentMsg
         label={`premium of your order in the market is`}
         amount={formattedTokenBalance} />)
