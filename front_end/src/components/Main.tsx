@@ -59,7 +59,7 @@ export const Main = () => {
     ]
 
     return (<>
-        <h1 className={classes.title}>SNOWMAN</h1>
+        <h1 className={classes.title}>雪人理财⛄️</h1>
         <YourWallet supportedTokens={supportedTokens} />
     </>)
 }

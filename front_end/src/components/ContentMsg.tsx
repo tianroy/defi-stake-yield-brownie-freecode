@@ -8,28 +8,23 @@ const useStyles = makeStyles(theme => ({
         alignItems: "center",
         fontWeight: 700
     },
-    tokenImg: {
-        width: "32px"
-    },
     amount: {
         fontWeight: 700
     }
 }))
 
-interface BalanceMsgProps {
+interface ContentMsgProps {
     label: string
     amount: number
-    tokenImgSrc: string
 }
 
-export const BalanceMsg = ({ label, amount, tokenImgSrc }: BalanceMsgProps) => {
+export const ContentMsg = ({ label, amount }: ContentMsgProps) => {
     const classes = useStyles()
 
     return (
         <div className={classes.container}>
             <div>{label}</div>
             <div className={classes.amount}>{amount}</div>
-            <img className={classes.tokenImg} src={tokenImgSrc} alt="token logo" />
         </div>
     )
 }

@@ -1,7 +1,7 @@
 import { Token } from "../Main"
 import { useEthers, useTokenBalance, useContractCall } from "@usedapp/core"
 import { formatUnits } from "@ethersproject/units"
-import { BalanceMsg } from "../BalanceMsg"
+import { Content2Msg } from "../Content2Msg"
 
 import { constants, utils } from "ethers"
 import TokenFarm from "../../chain-info/contracts/TokenFarm.json"
@@ -12,9 +12,6 @@ export interface ContractBalanceProps {
 }
 
 export const ContractBalance = ({ token }: ContractBalanceProps) => {
-    // address
-    // abi
-    // chainId
     const { chainId, account } = useEthers()
     const { abi } = TokenFarm
     const tokenFarmAddress = chainId ? networkMapping[String(chainId)]["TokenFarm"][0] : constants.AddressZero
@@ -32,11 +29,7 @@ export const ContractBalance = ({ token }: ContractBalanceProps) => {
             }
         ) ?? [];
     //console.log("account:", account)
-    //debugger;
 
-    const formattedTokenBalance: number = tokenBalance ? parseFloat(formatUnits(tokenBalance, 18)) : 0
-    return (<BalanceMsg
-        label={`your USDx balance in the pool is`}
-        tokenImgSrc={image}
-        amount={formattedTokenBalance} />)
+    return (<Content2Msg
+        label={`您在交易池中余额` + (tokenBalance / 1e18).toFixed(3) + 'USDx'} />)
 }

@@ -57,7 +57,7 @@ export const YourWallet = ({ supportedTokens }: YourWalletProps) => {
     return (
         <Box>
 
-            <h2 className={classes.header}> Deposit USDx to trade </h2>
+            <h2 className={classes.header}> 请在交易池中存有足够USDx余额 </h2>
             <Box className={classes.box}>
                 <TabContext value={selectedTokenIndex.toString()}>
                     <TabList onChange={handleChange} aria-label="stake form tabs">
@@ -83,24 +83,17 @@ export const YourWallet = ({ supportedTokens }: YourWalletProps) => {
                     })}
                 </TabContext>
             </Box>
-            <h2 className={classes.header}> Buy Dual ETH Strike=3300</h2>
+            <h2 className={classes.header}> ETH双币理财 挂钩价3300</h2>
             <Box>
                 <Box className={classes.box}>
                     <div className={classes.tabContent}>
                         <BestBid token={supportedTokens[selectedTokenIndex]} />
                         <SellBidForm token={supportedTokens[selectedTokenIndex]} />
                         <OptionSupply token={supportedTokens[selectedTokenIndex]} />
-                        <ExerciseForm token={supportedTokens[selectedTokenIndex]} />
-                    </div>
-                </Box>
-            </Box>
-            <h5 className={classes.header}> </h5>
-            <Box>
-                <Box className={classes.box}>
-                    <div className={classes.tabContent}>
                         <WhenExpiry token={supportedTokens[selectedTokenIndex]} />
                         <EthPrice token={supportedTokens[selectedTokenIndex]} />
                         <UserSize token={supportedTokens[selectedTokenIndex]} />
+                        <ExerciseForm token={supportedTokens[selectedTokenIndex]} />
                     </div>
                 </Box>
             </Box>

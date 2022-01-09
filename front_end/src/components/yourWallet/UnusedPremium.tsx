@@ -2,6 +2,7 @@ import { Token } from "../Main"
 import { useEthers, useTokenBalance, useContractCall } from "@usedapp/core"
 import { formatUnits } from "@ethersproject/units"
 import { BalanceMsg } from "../BalanceMsg"
+import { ContentMsg } from "../ContentMsg"
 
 import { constants, utils } from "ethers"
 import TokenFarm from "../../chain-info/contracts/TokenFarm.json"
@@ -35,8 +36,7 @@ export const UnusedPremium = ({ token }: UnusedPremiumProps) => {
     //debugger;
 
     const formattedTokenBalance: number = tokenBalance ? parseFloat(formatUnits(tokenBalance, 18)) : 0
-    return (<BalanceMsg
+    return (<ContentMsg
         label={`premium of your order in the market is`}
-        tokenImgSrc={image}
         amount={formattedTokenBalance} />)
 }

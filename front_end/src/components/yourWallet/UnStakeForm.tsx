@@ -31,7 +31,7 @@ export const UnStakeForm = ({ token }: UnStakeFormProps) => {
                     color="primary"
                     size="small"
                     disabled={isMiningUnstake}>
-                    {isMiningUnstake ? <CircularProgress size={26} /> : "Withdraw from pool"}
+                    {isMiningUnstake ? <CircularProgress size={26} /> : "从交易池取出余额"}
                 </Button>
             </div>
         </>

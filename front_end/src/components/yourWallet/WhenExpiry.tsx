@@ -1,7 +1,7 @@
 import { Token } from "../Main"
 import { useEthers, useTokenBalance, useContractCall } from "@usedapp/core"
-import { formatUnits } from "@ethersproject/units"
-import { BalanceMsg } from "../BalanceMsg"
+import { Content2Msg } from "../Content2Msg"
+
 
 import { constants, utils } from "ethers"
 import TokenFarm from "../../chain-info/contracts/TokenFarm.json"
@@ -12,18 +12,13 @@ export interface WhenExpiryProps {
 }
 
 export const WhenExpiry = ({ token }: WhenExpiryProps) => {
-    // address
-    // abi
-    // chainId
     const { chainId, account } = useEthers()
     const { abi } = TokenFarm
     const tokenFarmAddress = chainId ? networkMapping[String(chainId)]["TokenFarm"][0] : constants.AddressZero
     const tokenFarmInterface = new utils.Interface(abi)
-    const { image, address, name } = token
 
     const [secondsToExpiry] =
         useContractCall(
-            //account &&
             tokenFarmAddress && {
                 abi: tokenFarmInterface, // ABI interface of the called contract
                 address: tokenFarmAddress, // On-chain address of the deployed contract
@@ -31,12 +26,9 @@ export const WhenExpiry = ({ token }: WhenExpiryProps) => {
                 args: [], // Method arguments - address to be checked for balance
             }
         ) ?? [];
-    //console.log("account:", secondsToExpiry)
-    //debugger;
+    //console.log("secondsToExpiry:", secondsToExpiry)
 
-    return (<BalanceMsg
-        label={`hours before expiry`}
-        tokenImgSrc={image}
-        amount={secondsToExpiry / 60 / 60} />)
+    return (<Content2Msg
+        label={'还有' + (secondsToExpiry / 60 / 60).toFixed(1) + `小时到期`} />)
 
 }

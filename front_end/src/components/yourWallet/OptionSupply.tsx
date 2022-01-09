@@ -1,7 +1,8 @@
 import { Token } from "../Main"
 import { useEthers, useTokenBalance, useContractCall } from "@usedapp/core"
 import { formatUnits } from "@ethersproject/units"
-import { BalanceMsg } from "../BalanceMsg"
+import { Content2Msg } from "../Content2Msg"
+
 
 import { constants, utils } from "ethers"
 import TokenFarm from "../../chain-info/contracts/TokenFarm.json"
@@ -12,18 +13,14 @@ export interface OptionSupplyProps {
 }
 
 export const OptionSupply = ({ token }: OptionSupplyProps) => {
-    // address
-    // abi
-    // chainId
     const { chainId, account } = useEthers()
     const { abi } = TokenFarm
     const tokenFarmAddress = chainId ? networkMapping[String(chainId)]["TokenFarm"][0] : constants.AddressZero
     const tokenFarmInterface = new utils.Interface(abi)
     const { image, address, name } = token
 
-    const [tokenBalance] =
+    const [supply] =
         useContractCall(
-            //account &&
             tokenFarmAddress && {
                 abi: tokenFarmInterface, // ABI interface of the called contract
                 address: tokenFarmAddress, // On-chain address of the deployed contract
@@ -31,12 +28,8 @@ export const OptionSupply = ({ token }: OptionSupplyProps) => {
                 args: [], // Method arguments - address to be checked for balance
             }
         ) ?? [];
-    //console.log("supply:", tokenBalance / 1e18)
-    //debugger;
+    //console.log("supply:", supply / 1e18)
 
-    const formattedTokenBalance: number = tokenBalance ? parseFloat(formatUnits(tokenBalance, 18)) : 0
-    return (<BalanceMsg
-        label={`max USDX supply is`}
-        tokenImgSrc={image}
-        amount={formattedTokenBalance} />)
+    return (<Content2Msg
+        label={`剩余可购` + (supply / 1e18).toFixed(1) + 'USDx'} />)
 }

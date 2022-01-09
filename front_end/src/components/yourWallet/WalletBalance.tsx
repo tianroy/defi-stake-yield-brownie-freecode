@@ -13,7 +13,7 @@ export const WalletBalance = ({ token }: WalletBalanceProps) => {
     const tokenBalance = useTokenBalance(address, account)
     const formattedTokenBalance: number = tokenBalance ? parseFloat(formatUnits(tokenBalance, 18)) : 0
     return (<BalanceMsg
-        label={`Your ${name} balance`}
+        label={`钱包剩余${name}余额`}
         tokenImgSrc={image}
         amount={formattedTokenBalance} />)
 }

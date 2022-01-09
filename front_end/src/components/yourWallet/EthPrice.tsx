@@ -2,6 +2,7 @@ import { Token } from "../Main"
 import { useEthers, useTokenBalance, useContractCall } from "@usedapp/core"
 import { formatUnits } from "@ethersproject/units"
 import { BalanceMsg } from "../BalanceMsg"
+import { ContentMsg } from "../ContentMsg"
 
 import { constants, utils } from "ethers"
 import TokenFarm from "../../chain-info/contracts/TokenFarm.json"
@@ -35,8 +36,7 @@ export const EthPrice = ({ token }: EthPriceProps) => {
     //debugger;
 
     const formattedTokenBalance: number = tokenBalance ? parseFloat(formatUnits(tokenBalance, 18)) : 0
-    return (<BalanceMsg
-        label={`ETH price is`}
-        tokenImgSrc={image}
+    return (<ContentMsg
+        label={`当前ETH价格`}
         amount={formattedTokenBalance} />)
 }
