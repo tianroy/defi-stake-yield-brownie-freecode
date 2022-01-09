@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/snowman/static/css/main.027ae3e1.chunk.css",
-    "main.js": "/snowman/static/js/main.ba96cd61.chunk.js",
-    "main.js.map": "/snowman/static/js/main.ba96cd61.chunk.js.map",
+    "main.js": "/snowman/static/js/main.749948fd.chunk.js",
+    "main.js.map": "/snowman/static/js/main.749948fd.chunk.js.map",
     "runtime-main.js": "/snowman/static/js/runtime-main.f45132a5.js",
     "runtime-main.js.map": "/snowman/static/js/runtime-main.f45132a5.js.map",
     "static/js/2.18c0b5a5.chunk.js": "/snowman/static/js/2.18c0b5a5.chunk.js",
@@ -19,6 +19,6 @@
     "static/js/runtime-main.f45132a5.js",
     "static/js/2.18c0b5a5.chunk.js",
     "static/css/main.027ae3e1.chunk.css",
-    "static/js/main.ba96cd61.chunk.js"
+    "static/js/main.749948fd.chunk.js"
   ]
 }
