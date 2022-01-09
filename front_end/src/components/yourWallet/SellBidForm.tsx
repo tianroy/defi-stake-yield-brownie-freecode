@@ -19,11 +19,11 @@ export const SellBidForm = ({ token }: SellBidFormProps) => {
     const formattedTokenBalance: number = tokenBalance ? parseFloat(formatUnits(tokenBalance, 18)) : 0
     const { notifications } = useNotifications()
 
-    const [amount, setAmount] = useState<number | string | Array<number | string>>(0)
+    const [amount, setAmount] = useState<number>(0)
     const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const newAmount = event.target.value === "" ? "" : Number(event.target.value)
+        const newAmount = event.target.value === "" ? 0 : Number(event.target.value)
         setAmount(newAmount)
-        console.log(newAmount)
+        console.log('SellBidForm.newAmount', newAmount)
     }
 
     const amountAsWei = utils.parseEther(amount.toString())

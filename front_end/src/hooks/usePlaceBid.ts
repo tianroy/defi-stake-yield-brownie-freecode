@@ -5,7 +5,7 @@ import TokenFarm from "../chain-info/contracts/TokenFarm.json"
 import { Contract } from "@ethersproject/contracts"
 import networkMapping from "../chain-info/deployments/map.json"
 
-export const usePlaceBid = (amount: string) => {
+export const usePlaceBid = (amount: number, premium: number) => {
 
     const { chainId } = useEthers()
     const { abi } = TokenFarm
@@ -17,7 +17,7 @@ export const usePlaceBid = (amount: string) => {
         useContractFunction(tokenFarmContract, "placeBid", {
             transactionName: 'Place bid'
         })
-    const PlaceBid = () => { PlaceBidSend(amount, "100000000000000000000") }
+    const PlaceBid = () => { PlaceBidSend(utils.parseEther(amount.toString()), utils.parseEther(premium.toString())) }
     console.log(amount)
 
     //debugger;
