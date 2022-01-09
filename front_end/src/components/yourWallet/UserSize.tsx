@@ -1,8 +1,7 @@
 import { Token } from "../Main"
 import { useEthers, useTokenBalance, useContractCall } from "@usedapp/core"
 import { formatUnits } from "@ethersproject/units"
-import { BalanceMsg } from "../BalanceMsg"
-import { ContentMsg } from "../ContentMsg"
+import { Content2Msg } from "../Content2Msg"
 
 import { constants, utils } from "ethers"
 import TokenFarm from "../../chain-info/contracts/TokenFarm.json"
@@ -32,11 +31,12 @@ export const UserSize = ({ token }: UserSizeProps) => {
                 args: [account], // Method arguments - address to be checked for balance
             }
         ) ?? [];
-    console.log("user size:", tokenBalance)
-    //debugger;
+    //console.log("user size:", tokenBalance)
 
     const formattedTokenBalance: number = tokenBalance ? parseFloat(formatUnits(tokenBalance, 18)) : 0
-    return (<ContentMsg
-        label={`如果到期日结算价>=3300，您已经交易了`}
-        amount={formattedTokenBalance} />)
+
+
+    return (<Content2Msg
+        label={`当结算价>=3000，到期您能收到` + (tokenBalance / 1e18).toFixed(2)
+            + 'USDx; 当结算价<3000，到期您能收到' + (tokenBalance / 1e18 / 3000).toFixed(4) + 'ETH'} />)
 }

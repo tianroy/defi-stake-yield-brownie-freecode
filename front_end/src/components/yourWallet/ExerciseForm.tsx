@@ -31,7 +31,7 @@ export const ExerciseForm = ({ token }: ExerciseFormProps) => {
                     color="primary"
                     size="small"
                     disabled={isMiningUnstake}>
-                    {isMiningUnstake ? <CircularProgress size={26} /> : "Exercise contract"}
+                    {isMiningUnstake ? <CircularProgress size={26} /> : "到期结算"}
                 </Button>
             </div>
         </>

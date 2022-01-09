@@ -31,5 +31,5 @@ export const ContractBalance = ({ token }: ContractBalanceProps) => {
     //console.log("account:", account)
 
     return (<Content2Msg
-        label={`您在交易池中余额` + (tokenBalance / 1e18).toFixed(3) + 'USDx'} />)
+        label={`您在交易池中余额` + (tokenBalance / 1e18).toFixed(2) + 'USDx'} />)
 }

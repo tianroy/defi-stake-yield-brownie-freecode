@@ -84,7 +84,7 @@ export const YourWallet = ({ supportedTokens }: YourWalletProps) => {
                     })}
                 </TabContext>
             </Box>
-            <h2 className={classes.header}> ETH双币理财 挂钩价3300</h2>
+            <h2 className={classes.header}> ETH双币理财 挂钩价3000</h2>
             <Box>
                 <Box className={classes.box}>
                     <div className={classes.tabContent}>
