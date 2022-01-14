@@ -4,7 +4,7 @@ import { useEthers, useTokenBalance, useNotifications } from "@usedapp/core"
 import { formatUnits } from "@ethersproject/units"
 import { Button, Input, CircularProgress, Snackbar } from "@material-ui/core"
 import Alert from "@material-ui/lab/Alert"
-import { useUnStakeTokens } from "../../hooks"
+import { useExercise } from "../../hooks"
 import { utils } from "ethers"
 
 export interface ExerciseFormProps {
@@ -14,9 +14,9 @@ export interface ExerciseFormProps {
 export const ExerciseForm = ({ token }: ExerciseFormProps) => {
     const { address: tokenAddress, name } = token
 
-    const { UnStake, mystate } = useUnStakeTokens(tokenAddress)
-    const handleUnStakeSubmit = () => {
-        return UnStake()
+    const { Exercise, mystate } = useExercise()
+    const handleExercise = () => {
+        return Exercise()
     }
 
 
@@ -27,7 +27,7 @@ export const ExerciseForm = ({ token }: ExerciseFormProps) => {
         <>
             <div>
                 <Button
-                    onClick={handleUnStakeSubmit}
+                    onClick={handleExercise}
                     color="primary"
                     size="small"
                     disabled={isMiningUnstake}>

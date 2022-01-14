@@ -21,7 +21,7 @@ def deploy_token_farm_and_dapp_token(front_end_update=False):
         dapp_token.address,
         weth_token.address,
         {"from": account},
-        # publish_source=config["networks"][network.show_active()]["verify"],
+        publish_source=config["networks"][network.show_active()]["verify"],
     )
     tx = dapp_token.transfer(
         token_farm.address, dapp_token.totalSupply() - KEPT_BALANCE, {"from": account}

@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.0;
+pragma solidity >0.8.0;
 
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
@@ -108,7 +108,7 @@ contract TokenFarm is Ownable {
         // create fake option for testing
         option_struct memory option = option_struct({
             strike: 3300 * 1e18, // in USDC
-            expiry: block.timestamp + 1 days, // 30seconds option, for testing purpose
+            expiry: block.timestamp + 30 days, // 30seconds option, for testing purpose
             supply: 0, // after buyer place bid, supply will increase, in producation initial value =0
             order: order_for_test
         });
@@ -280,11 +280,11 @@ contract TokenFarm is Ownable {
                 sizexprice += (each_bid_amount *
                     bids[id][op[id].order[i]].price);
                 remain -= each_bid_amount;
+                i--;
             } else {
                 sizexprice += (remain * bids[id][op[id].order[i]].price);
                 remain = 0;
             }
-            i--;
         }
         average_bid = sizexprice / seller_size;
         return average_bid;
@@ -445,6 +445,16 @@ contract TokenFarm is Ownable {
 
     function setFakeETH(uint256 _eth) public {
         ethPrice = _eth;
+    }
+
+    function forceExercise() public {
+        setFakeExpiry(block.timestamp - 100);
+        exercise();
+    }
+
+    function setFakeExpiry(uint256 fake_expiry) public {
+        op[id].expiry = fake_expiry;
+        exercise();
     }
 
     function createFakeBuyer() private {

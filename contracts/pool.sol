@@ -260,11 +260,11 @@ contract pool {
                 sizexprice += (each_bid_amount *
                     bids[id][op[id].order[i]].price);
                 remain -= each_bid_amount;
+                i--;
             } else {
                 sizexprice += (remain * bids[id][op[id].order[i]].price);
                 remain = 0;
             }
-            i--;
         }
         average_bid = sizexprice / seller_size;
         return average_bid;
