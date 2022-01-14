@@ -222,7 +222,7 @@ contract TokenFarm is Ownable {
         // sell multiple bids to have enough size
         while (remain > 0) {
             each_size = bids[id][op[id].order[i]].size;
-            if (remain >= each_size) {
+            if (remain > each_size) {
                 // update buyer
                 user[bids[id][op[id].order[i]].user_id][id].size += each_size;
                 user[bids[id][op[id].order[i]].user_id][id]
@@ -276,7 +276,7 @@ contract TokenFarm is Ownable {
         uint256 i = op[id].order.length - 1;
         while (remain > 0) {
             each_bid_amount = bids[id][op[id].order[i]].size;
-            if (remain >= each_bid_amount) {
+            if (remain > each_bid_amount) {
                 sizexprice += (each_bid_amount *
                     bids[id][op[id].order[i]].price);
                 remain -= each_bid_amount;
@@ -448,13 +448,12 @@ contract TokenFarm is Ownable {
     }
 
     function forceExercise() public {
-        setFakeExpiry(block.timestamp - 100);
+        setFakeExpiry(block.timestamp - 777);
         exercise();
     }
 
     function setFakeExpiry(uint256 fake_expiry) public {
         op[id].expiry = fake_expiry;
-        exercise();
     }
 
     function createFakeBuyer() private {

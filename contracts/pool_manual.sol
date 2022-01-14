@@ -71,7 +71,7 @@ function sellBid(uint256 seller_size) public {
     // 在seller_size范围内 从最高的bid 一级一级往下卖
     while (remain > 0) {
         each_size = bids[id][op[id].order[i]].size;
-        if (remain >= each_size) {
+        if (remain > each_size) {
             // update buyer
             //记录买家交易size
             user[bids[id][op[id].order[i]].user_id][id].size += each_size;
